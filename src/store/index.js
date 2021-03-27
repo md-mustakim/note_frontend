@@ -6,7 +6,23 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    userData: null
+    userData: null,
+    test: "data pass",
+    header: {
+      title: "Note Management System"
+    },
+    footer: {
+      items: [
+        {
+          name: "Home",
+          output: "Home"
+        },
+        {
+          name: "categoryCreate",
+          output: "Add Category"
+        }
+      ]
+    }
   },
   mutations: {
     saveUserData(state, payload) {
@@ -33,7 +49,8 @@ export default new Vuex.Store({
               if (res.data.status) {
                 console.log("got res");
                 let userDataString = JSON.stringify(res.data.token);
-                localStorage.setItem("userDataNote", userDataString);
+                let pureToken = userDataString.slice(1, -1);
+                localStorage.setItem("userDataNote", pureToken);
                 commit("saveUserData", res.data);
                 resolve(true);
               } else {
@@ -54,7 +71,6 @@ export default new Vuex.Store({
         resolve(true);
         localStorage.removeItem("userDataNote");
         let statusOf = localStorage.getItem("userDataNote");
-        console.log(statusOf);
         if (statusOf.length !== 0) {
           reject(false);
         }

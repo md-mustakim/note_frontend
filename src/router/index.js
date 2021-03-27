@@ -6,6 +6,7 @@ import Login from "@/views/Login";
 import Notfound from "@/views/Notfound";
 import createCategory from "@/views/Category/Create";
 import viewCategory from "@/views/Category/View";
+import createNote from "@/views/Note/Create";
 
 Vue.use(VueRouter);
 
@@ -46,21 +47,23 @@ const routes = [
   {
     path: "/Category/create",
     name: "categoryCreate",
-    component: createCategory
+    component: createCategory,
+    meta: {
+      title: "Not found"
+    }
   },
   {
     path: "/Category/view",
     name: "viewCreate",
-    component: viewCategory
+    component: viewCategory,
+    meta: {
+      title: "Not found"
+    }
   },
   {
-    path: "/about",
-    name: "About",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/About.vue"),
+    path: "/Note/create/:category_id",
+    name: "createNote",
+    component: createNote,
     meta: {
       title: "Not found"
     }
@@ -76,7 +79,7 @@ const guestRoute = ["Login"];
 
 router.beforeEach((to, from, next) => {
   document.title = to.meta.title + " | BD TAX CARE";
-  let token = localStorage.getItem("userData");
+  let token = localStorage.getItem("userDataNote");
 
   if (guestRoute.includes(to.name)) {
     // can go to login page
