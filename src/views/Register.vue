@@ -3,8 +3,10 @@
     class="d-flex justify-content-center align-items-center"
     style="min-height: 100vh"
   >
-    <div class="w-md-50 w-25 shadow p-5">
-      <b-alert variant="danger" v-if="error.length > 0"> {{error.message}} </b-alert>
+    <div class="w-md-50 shadow p-5">
+      <b-alert variant="danger" v-if="error.length > 0">
+        {{ error.message }}
+      </b-alert>
       <form v-on:submit.prevent="press">
         <b-input-group class="mt-3">
           <template #prepend>
@@ -14,6 +16,15 @@
             ></b-input-group-text>
           </template>
           <b-form-input v-model="userInfo.userid"></b-form-input>
+        </b-input-group>
+        <b-input-group class="mt-3">
+          <template #prepend>
+            <b-input-group-text
+              ><strong class="text-danger">
+                <b-icon icon="mailbox"></b-icon> </strong
+            ></b-input-group-text>
+          </template>
+          <b-form-input v-model="userInfo.email"></b-form-input>
         </b-input-group>
 
         <b-input-group class="mt-3">
@@ -33,8 +44,8 @@
   </div>
 </template>
 <script>
-import * as firebase from "firebase/app";
-import "firebase/auth";
+import ax from "@/axios";
+
 export default {
   name: "register",
   data() {
@@ -42,29 +53,28 @@ export default {
       name: "Register",
       userInfo: {
         userid: null,
-        pass: null
+        pass: null,
+        email: null
       },
-      error: ''
+      error: ""
     };
   },
-  mounted() {
-    let cUser = firebase.default.auth().currentUser;
-    console.warn(cUser);
-  },
+  mounted() {},
   methods: {
-    press: async function() {
-      try {
-        let user = await firebase.default
-          .auth()
-          .createUserWithEmailAndPassword(
-            this.userInfo.userid,
-            this.userInfo.pass
-          );
-        console.warn(user);
-      } catch (e) {
-        this.error = e;
-        console.log(e);
-      }
+    press() {
+      ax.post("userRegister.php", {
+        login: {
+          data: {
+            user: this.userInfo.userid,
+            pass: this.userInfo.pass,
+            email: this.userInfo.email
+          }
+        }
+      })
+        .then(res => {
+          console.log(res);
+        })
+        .catch(e => console.warn(e));
     }
   }
 };

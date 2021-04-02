@@ -18,8 +18,8 @@ export default new Vuex.Store({
           output: "Home"
         },
         {
-          name: "categoryCreate",
-          output: "Add Category"
+          name: "Setting",
+          output: "Setting"
         }
       ]
     }

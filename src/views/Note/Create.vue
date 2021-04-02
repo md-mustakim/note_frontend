@@ -1,8 +1,5 @@
 <template>
-  <div
-    class="my-5"
-    style="min-height: 80vh;"
-  >
+  <div class="my-5" style="min-height: 80vh;">
     <div
       class="fixed-top bg-secondary text-light py-2 font-weight-bold text-capitalize"
     >
@@ -15,8 +12,12 @@
       <table class="table w-100 table-sm table-bordered text-left mb-5">
         <tr v-for="(item, i) in noteDataList" :key="i">
           <td>
-            <span class="font-weight-bold">{{ item.note_data }}</span> &nbsp;
-            <small class="text-info float-right">{{ item.reg_time }}</small>
+            <span @click="clops(item.id.toString())">{{ item.note_data }}</span>
+            <br />
+            <b-collapse :id="item.id.toString()">
+              <p @click="edit(item.id.toString())">Edit</p>
+              <small class="text-info float-right">{{ item.reg_time }}</small>
+            </b-collapse>
           </td>
         </tr>
       </table>
@@ -53,13 +54,23 @@ export default {
       note: "",
       message: "",
       noteDataList: null,
-      category_name: null
+      category_name: null,
+      displayClassShow: "font-weight-bold",
+      displayClassHide: "d-none",
+      showClass: true,
+      hideClass: false
     };
   },
   mounted() {
     this.noteList();
   },
   methods: {
+    clops(i) {
+      this.$root.$emit("bv::toggle::collapse", i);
+    },
+    edit(i) {
+      console.log(i);
+    },
     noteList() {
       axios
         .get(

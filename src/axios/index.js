@@ -3,7 +3,8 @@ import router from "@/router";
 let userData = localStorage.getItem("userDataNote");
 
 const ax = axios.create({
-  baseURL: "http://192.168.0.115/project/mostak/api/",
+  //baseURL: "https://api.holycareschool.com/api/",
+  baseURL: "http://localhost/project/mostak/api/",
   headers: { Authorization: "Bearer " + userData }
 });
 ax.defaults.timeout = 10000;

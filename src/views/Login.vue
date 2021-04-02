@@ -16,7 +16,7 @@
                 <b-icon icon="person"></b-icon> </strong
             ></b-input-group-text>
           </template>
-          <b-form-input v-model="userInfo.userid"></b-form-input>
+          <b-form-input v-model="userInfo.userid" autofocus></b-form-input>
         </b-input-group>
 
         <b-input-group class="mt-3">
@@ -32,6 +32,9 @@
           <button @click="press" class="btn btn-success">
             Login <i class="fa fa-save"></i>
           </button>
+        </div>
+        <div>
+          <router-link to="/register"> Register a new Account</router-link>
         </div>
       </form>
     </div>

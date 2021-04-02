@@ -7,6 +7,8 @@ import Notfound from "@/views/Notfound";
 import createCategory from "@/views/Category/Create";
 import viewCategory from "@/views/Category/View";
 import createNote from "@/views/Note/Create";
+import Setting from "@/views/Setting";
+import NoInternet from "@/views/NoInternet";
 
 Vue.use(VueRouter);
 
@@ -29,7 +31,7 @@ const routes = [
   },
   {
     path: "/register",
-    name: "register",
+    name: "Register",
     component: Register,
     meta: {
       title: "Not found"
@@ -40,7 +42,7 @@ const routes = [
     name: "Login",
     component: Login,
     meta: {
-      title: "Not found"
+      title: "Login"
     }
   },
 
@@ -49,7 +51,7 @@ const routes = [
     name: "categoryCreate",
     component: createCategory,
     meta: {
-      title: "Not found"
+      title: "Create Note"
     }
   },
   {
@@ -57,7 +59,7 @@ const routes = [
     name: "viewCreate",
     component: viewCategory,
     meta: {
-      title: "Not found"
+      title: "View Category"
     }
   },
   {
@@ -65,7 +67,23 @@ const routes = [
     name: "createNote",
     component: createNote,
     meta: {
-      title: "Not found"
+      title: "Create Note"
+    }
+  },
+  {
+    path: "/Setting",
+    name: "Setting",
+    component: Setting,
+    meta: {
+      title: "Setting"
+    }
+  },
+  {
+    path: "/NoInternet",
+    name: "NoInternet",
+    component: NoInternet,
+    meta: {
+      title: "NoInternet"
     }
   }
 ];
@@ -75,7 +93,7 @@ const router = new VueRouter({
   routes
 });
 
-const guestRoute = ["Login"];
+const guestRoute = ["Login", "Register"];
 
 router.beforeEach((to, from, next) => {
   document.title = to.meta.title + " | BD TAX CARE";

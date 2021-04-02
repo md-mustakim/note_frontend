@@ -1,13 +1,21 @@
 <template>
-  <div class="d-flex flex-column" style="max-height: 100vh; min-height: 100vh;">
-    <div>
+  <div>
+    <div class="sticky-top">
       <Header />
     </div>
-    <div class="mx-1" style="max-height: 80vh;">
-      <table style="font-size: large;" class="table  table-sm table-bordered table-info text-left">
+    <div class="mx-1">
+      <table
+        style="font-size: large;"
+        class="table  table-sm table-bordered table-info text-left"
+      >
         <thead>
           <tr>
-            <th colspan="2" class="text-center">Note Categories</th>
+            <th colspan="2" class="text-center">
+              Note Categories
+              <span class="float-right" @click="addCat">
+                <small class="font-italic">Add</small>
+              </span>
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -32,7 +40,7 @@
         </tbody>
       </table>
     </div>
-    <div class="mt-auto">
+    <div style="position: sticky; bottom: 0;">
       <Footer />
     </div>
   </div>
@@ -63,6 +71,11 @@ export default {
         .catch(e => {
           console.log(e);
         });
+    },
+    addCat() {
+      this.$router.push({
+        name: "categoryCreate"
+      });
     }
   }
 };
