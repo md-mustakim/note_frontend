@@ -9,6 +9,7 @@ import viewCategory from "@/views/Category/View";
 import createNote from "@/views/Note/Create";
 import Setting from "@/views/Setting";
 import NoInternet from "@/views/NoInternet";
+import Edit from "@/views/Note/Edit";
 
 Vue.use(VueRouter);
 
@@ -68,6 +69,14 @@ const routes = [
     component: createNote,
     meta: {
       title: "Create Note"
+    }
+  },
+  {
+    path: "/Note/Edit/:id",
+    name: "Edit",
+    component: Edit,
+    meta: {
+      title: "Edit Note"
     }
   },
   {

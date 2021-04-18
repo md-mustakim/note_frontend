@@ -15,7 +15,12 @@
             <span @click="clops(item.id.toString())">{{ item.note_data }}</span>
             <br />
             <b-collapse :id="item.id.toString()">
-              <p @click="edit(item.id.toString())">Edit</p>
+              <span @click="edit(item.id.toString())" class="text-info"
+                >Edit</span
+              >
+              <span @click="remove(item.id.toString())" class="px-2 text-info"
+                >Delete</span
+              >
               <small class="text-info float-right">{{ item.reg_time }}</small>
             </b-collapse>
           </td>
@@ -34,7 +39,6 @@
           autocomplete="off"
           autofocus
         />
-
         <div class="input-group-append">
           <button class="btn btn-success" @click="create">
             Save
@@ -46,6 +50,7 @@
 </template>
 <script>
 import axios from "@/axios";
+import ax from "@/axios";
 
 export default {
   name: "createNote",
@@ -69,7 +74,23 @@ export default {
       this.$root.$emit("bv::toggle::collapse", i);
     },
     edit(i) {
-      console.log(i);
+      this.$router.push({
+        name: "Edit",
+        params: {
+          id: i
+        }
+      });
+    },
+    remove(i) {
+      ax.get("note.php?delete&id= " + i)
+        .then(res => {
+
+          if (res.data.status) {
+            console.log(res);
+            this.noteList();
+          }
+        })
+        .catch(e => console.warn(e));
     },
     noteList() {
       axios
@@ -91,7 +112,7 @@ export default {
         note_data: this.note
       };
       axios
-        .post("note.php", postData)
+        .post("note.php?save", postData)
         .then(res => {
           if (res.data.status) {
             this.message = res.data.message;

@@ -3,15 +3,20 @@
     <div class="sticky-top">
       <Header />
     </div>
-    <table class="table table-bordered table-info text-left">
-      <tbody>
-        <tr v-for="(item, i) in categoryList" :key="i">
-          <td>{{ i + 1 }}</td>
-          <td class="font-weight-bold">{{ item.category_name }}</td>
-          <td @click="deleteItem(item.id)">&times;</td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="" v-if="categoryList.length === 0">
+      No Data Found
+    </div>
+    <div v-else>
+      <table class="table table-bordered table-info text-left">
+        <tbody>
+          <tr v-for="(item, i) in categoryList" :key="i">
+            <td>{{ i + 1 }}</td>
+            <td class="font-weight-bold">{{ item.category_name }}</td>
+            <td @click="deleteItem(item.id)" class="text-primary">Delete</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
     <div class="" style="position: sticky; bottom: 0;">
       <Footer />
     </div>
@@ -45,18 +50,20 @@ export default {
           console.log(e);
         });
     },
-    deleteItem() {
+    deleteItem(id) {
       let status = confirm(
         "Are You Sure? Every message Of this category will be deleted"
       );
       if (status) {
-        ax.get("").then(res => {
+        ax.get("category.php?delete&id=" + id).then(res => {
+          console.log(res.data);
           if (res.data.status) {
             this.$store.dispatch("ALERT", {
               title: "Success",
-              message: "Delete Success",
+              message: res.data.message,
               variant: "success"
             });
+            this.getCategory();
           } else {
             this.$store.dispatch("ALERT", {
               title: "Success",
