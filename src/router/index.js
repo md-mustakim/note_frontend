@@ -10,6 +10,7 @@ import createNote from "@/views/Note/Create";
 import Setting from "@/views/Setting";
 import NoInternet from "@/views/NoInternet";
 import Edit from "@/views/Note/Edit";
+import ChangePassword from "@/views/ChangePassword";
 
 Vue.use(VueRouter);
 
@@ -44,6 +45,14 @@ const routes = [
     component: Login,
     meta: {
       title: "Login"
+    }
+  },
+  {
+    path: "/ChangePassword",
+    name: "ChangePassword",
+    component: ChangePassword,
+    meta: {
+      title: "Change Password"
     }
   },
 

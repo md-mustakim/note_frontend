@@ -54,7 +54,7 @@ export default {
         {
           name: "Change Password",
           icon: "faSave",
-          route: ""
+          route: "ChangePassword"
         },
         {
           name: "Activity Log",
